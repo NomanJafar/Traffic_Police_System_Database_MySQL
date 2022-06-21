@@ -1,0 +1,200 @@
+Queries for 
+1.Table Creation
+create table STATIONS(
+Station_id char(3),
+District varchar(10) NOT NULL unique,
+Staff number NOT NULL,
+CONSTRAINT STATION_ID_PK PRIMARY KEY(Station_id)
+)
+create table OFFICERS(
+Officer_id char(7) CONSTRAINT OFFICER_ID_PK PRIMARY KEY,
+First_Name varchar(20) CONSTRAINT FIRST_NAME_NN NOT NULL,
+Last_Name varchar(20),
+Rank_ varchar(20) CONSTRAINT RANK_NN NOT NULL,
+CNIC char(15) CONSTRAINT CNIC_NN NOT NULL,
+Hire_date date constraint Hire_date_NN NOT NULL,
+Station_id char(3) NOT NULL REFERENCES STATIONS
+)
+Create table VIOLATORS(
+Violator_id char(15) CONSTRAINT VIOLATOR_ID_PK PRIMARY KEY,
+First_Name varchar(20) CONSTRAINT FIRST_NAME_V_NN NOT NULL,
+Last_Name varchar(20),
+Date_Of_Birth date constraint date_of_NN NOT NULL
+)
+create table VEHICLE(
+Vehicle_No char(8) CONSTRAINT VEHICLE_NO_PK PRIMARY KEY,
+MODEL_NO char(4) CONSTRAINT MODEL_V_NN NOT NULL,
+COMPANY varchar(20) not null,
+Color varchar(20) CONSTRAINT COLOR_V_NN NOT NULL,
+Type varchar(20) not null,
+Violators_id char(15) NOT NULL REFERENCES violators
+)
+create table CHALLAN_TYPE(
+C_T_Id char(3) constraint CHALLAN_T_PK PRIMARY KEY,
+Challan_DESC varchar(30) CONSTRAINT CHALLAN_DATE_NN NOT NULL,
+Fine numeric(10) constraint Fine_challan not null
+)
+create table CHALLAN(
+Challan_Date date ,
+Vehicle_no char(8) NOT NULL REFERENCES VEHICLE,
+C_T_Id char(3) NOT NULL REFERENCES CHALLAN_TYPE,
+Officer_id char(7) NOT NULL REFERENCES OFFICERS,
+Address varchar(30) constraint address_challan not null,
+constraint challan_pk primary key(Challan_Date,Vehicle_no,C_T_Id)
+)
+2. Queries For Inserting Data into Tables
+Stations
+Insert all
+into stations values('ISL','Isalamabad',12)
+into stations values ('LHR','Lahore',58)
+into stations values ('KHI','Karachi',89)
+into stations values ('FSD','Faisalabad',34)
+into stations values ('GJW','Gujranwala',38)
+into stations values ('HYD','Hyderabad',30)
+into stations values ('MLT','Multan',52)
+into stations values ('NKN','Nankana',20)
+into stations values ('MWI','Mianwali',38)
+into stations values ('PSW','Peshawar',28)
+into stations values ('SWB','Swabi',21)
+into stations values ('QTA','Quetta',23)
+into stations values ('GWD','Gawadar',20)
+into stations values ('DIK','Dera.I.Khan',22)
+into stations values ('DGK', 'D.G.Khan',25))
+Officers
+insert all into officers values
+('ISL-121','Imran','Ali','ASI',TO_DATE('22-09-2000','DD/MM/YYYY'),'3303-
+8084553-9','ISL')
+into officers values
+('ISL-122','Zeeshan','Ali','ASI',TO_DATE('22-09-1999','DD/MM/YYYY'),'3302-
+3454233-9','ISL')
+insert all into officers values
+('LHR-123','Murtaza','Naseem','Hawaldar','3302-7865253-2',TO_DATE('11-11-
+1978','DD/MM/YYYY'),'LHR')
+into officers values
+('KHI-124','Zohaib','Razaq','SI','3302-6754302-4',TO_DATE('24-08-
+1981','DD/MM/YYYY'),'KHI')
+into officers values
+('LHR-125','Razaq','Yunus','SI','3302-9846322-1',TO_DATE('18-09-
+1980','DD/MM/YYYY'),'LHR')
+into officers values
+('NKN-124','Absar','Raza','SI','3302-7812092-3',TO_DATE('21-05-
+1979','DD/MM/YYYY'),'NKN')
+into officers values
+('LHR-125','Razaq','Yunus','SI','3302-9846322-1',TO_DATE('18-09-
+1977','DD/MM/YYYY'),'LHR')
+into officers values
+('PSW-126','Zain','Khan','ASI','3301-8967520-2',TO_DATE('13-04-
+1983','DD/MM/YYYY'),'PSW')
+into officers values
+('QTA-127','Abdul Hakeem','Baloch','ASI','3305-4595721-2',TO_DATE('28-09-
+1975','DD/MM/YYYY'),'QTA')
+select * from dual;
+Violators
+insert all into violators 
+into violators values ('3307-0839276-5','Ahmed','Hussain',TO_DATE('14-05-
+1991','DD/MM/YYYY'))
+into violators values ('3301-9103876-2','Farrukh','Ali',TO_DATE('19-02-
+1994','DD/MM/YYYY'))
+into violators values ('3308-0839276-8','Hamid','Ali',TO_DATE('12-01-
+1999','DD/MM/YYYY'))
+into violators values ('3306-0839276-1','Danish','Mazhar',TO_DATE('25-06-
+1997','DD/MM/YYYY'))
+into violators values ('3307-0839276-2','Asfand','Saqib',TO_DATE('20-11-
+1995','DD/MM/YYYY'))
+into violators values ('3308-0839276-6','Hasan','Raza',TO_DATE('21-02-
+2005','DD/MM/YYYY'))
+into violators values ('3303-0839276-7','Mumataz','',TO_DATE('16-10-
+1992','DD/MM/YYYY'))
+into violators values ('3302-0839276-1','Nazeer','Ahmed',TO_DATE('21-06-
+2003','DD/MM/YYYY'))
+into violators values ('3301-0839276-4','Nasir','Mazhar',TO_DATE('11-09-
+2000','DD/MM/YYYY'))
+into violators values ('3306-8365012-3','Zain','Ali',TO_DATE('02-12-
+1992','DD/MM/YYYY'))
+into violators values ('3307-9012654-1','Noman','Jafar',TO_DATE('06-10-
+1995','DD/MM/YYYY'))
+into violators values ('3303-9120345-2','Muneeb','Javeid',TO_DATE('08-11-
+1999','DD/MM/YYYY'))
+into violators values ('3308-9810324-1','Mohsin','Istiaq',TO_DATE('22-03-
+1994','DD/MM/YYYY'))
+into violators values ('3309-1037432-7','Aneeb','Maqsood',TO_DATE('14-05-
+1991','DD/MM/YYYY'))
+into violators values ('3303-1241211-0','Muhammd','Mustafa',TO_DATE('12-03-
+1992','DD/MM/YYYY'))
+into violators values ('3307-0125132-2','Usama','Naeem',TO_DATE('21-01-
+1991','DD/MM/YYYY'))
+select * from Dual;
+Vehicle
+insert all
+into vehicle values ('LRE-123','2007','Honda CD70','RED','Bike','3307-
+0839276-5')
+into vehicle values ('LHE-786','2019','Honda CG125','Bike','Black','3301-
+9103876-2')
+into vehicle values ('ISL-341','2012','Honda CD70','Bike','Red','3308-
+0839276-8')
+into vehicle values ('QTA-700','2010','Toyata Land Cruiser','Heavy
+Vehicle','Black','3307-0839276-2')
+into vehicle values ('NKN-900','2014','RoadPrine RP70','Bike','Red','3307-
+0839276-5')
+into vehicle values ('LRE-743','2009','Toyota Corolla','Light 
+Vehicle','Grey','3303-0839276-7')
+into vehicle values ('ISL-342','2007','Honda CG125','Bike','Red','3301-
+0839276-4')
+into vehicle values ('NKN-695','2007','Uniqu CD70','Bike','Red','3306-
+8365012-3')
+into vehicle values ('DGK-123','2007','Suzuki Mehran','Light 
+Vehicle','White','3303-9120345-2')
+into vehicle values ('DIK-123','2007','Honda CD70','Bike','Red','3308-
+9810324-1')
+into vehicle values ('GJW-123','2007','Honda CD70','Bike','Red','3309-
+1037432-7')
+into vehicle values ('SWB-123','2007','Honda City','Light 
+Vehicle','White','3303-1241211-0')
+into vehicle values ('MLT-123','2007','Honda CD70','Bike','Red','3307-
+0125132-2')
+select * from dual
+Challan_Type
+insert all
+into challan_type values('S01','Street Light Violation LV',500)
+into challan_type values('S02','Street Light Violation HV',5000)
+into challan_type values('B01','Seat Belt Violation LV',800)
+into challan_type values('B02','Seat Belt Violation HV',2000)
+into challan_type values('D01','Double Person Violation BK',200)
+into challan_type values('L01','No Liscence Violation LV',1000)
+into challan_type values('L02','No Liscence Violation HV',5000)
+into challan_type values('U01','Under Age Violation LV',5000)
+into challan_type values('U02','Under Age Violation HV',10000)
+into challan_type values('N01','No Number Violation LV',200)
+into challan_type values('N02','No Number Violation HV',3000)
+into challan_type values('H01','No Helmet Violation BK',200)
+into challan_type values('M01','Mobile Violation LV',1000)
+into challan_type values('M02','Mobile Violation HV',2500)
+select * from dual;
+Challan
+insert all
+into Challan values (TO_DATE('16-06-2022','DD/MM/YYYY'),'LRE-123','D01','LHR123','G.C University road, LHR')
+into Challan values (TO_DATE('15-06-2022','DD/MM/YYYY'),'LHE-786','S01','LHR127','Wafaqi Colony, LHR')
+into Challan values (TO_DATE('14-06-2022','DD/MM/YYYY'),'ISL-341','L01','ISL121','F-11 sector, ISL')
+into Challan values (TO_DATE('14-06-2022','DD/MM/YYYY'),'QTA-700','B02','QTA129','Samungali Base , Quetta')
+into Challan values (TO_DATE('15-06-2022','DD/MM/YYYY'),'NKN-900','S01','NKN126','Sheedi kot, Nanakana')
+into Challan values (TO_DATE('16-06-2022','DD/MM/YYYY'),'LRE-743','M01','LHR127','Jallo, LHR')
+into Challan values (TO_DATE('16-06-2022','DD/MM/YYYY'),'ISL-342','H01','ISL120','Air University , ISL')
+into Challan values (TO_DATE('15-06-2022','DD/MM/YYYY'),'NKN-695','H01','NKN126','Gurduwara Road , Nankana')
+into Challan values (TO_DATE('14-06-2022','DD/MM/YYYY'),'DGK-123','L01','DGK130','DGK Road, DGK')
+into Challan values (TO_DATE('16-06-2022','DD/MM/YYYY'),'DIK-123','H01','DIK131','DIK Road, DIk')
+into Challan values (TO_DATE('16-06-2022','DD/MM/YYYY'),'GJW-123','N01','GJW132','G.T road, GJW')
+into Challan values (TO_DATE('14-06-2022','DD/MM/YYYY'),'SWB-123','M01','SWB134','Sawabi Road , Sawabi')
+into Challan values (TO_DATE('15-06-2022','DD/MM/YYYY'),'MLT-123','S01','MLT135','Pir Mahal Road , Multan')
+into Challan values (TO_DATE('16-06-2022','DD/MM/YYYY'),'FSA-241','U01','FSD133','Samanabad Road , FSD')
+select * from dual;
+ Data retrieval from any table 
+ Select * from (Table)
+ To get information of challan violator and Fine on 
+him
+ Select V1.first_name , C1.Address, C.Fine 
+ From Challan C inner join Vehicle V 
+ on C.Vehicle_no = V.Vehicle_no
+ Inner join Violators V1 
+ V.Violators_id = V1.Violator_id
+ Inner join Challan_Type C1 
+ On C.C_T_ID = C1.C_T_id;
